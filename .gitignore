@@ -1,0 +1,10 @@
+*.bkp
+*.dtmp
+.venv
+.vscode
+.ansible
+
+.ansible_sudo_password
+.ansible_vault_key
+
+local_testing.yml

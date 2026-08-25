@@ -1,0 +1,16 @@
+- name: Create kuma data dir
+  ansible.builtin.file:
+    path: /var/lib/kuma
+    state: directory
+    mode: "0644"
+  become: true
+
+- name: Write kuma container file
+  ansible.builtin.template:
+    src: templates/kuma.container
+    dest: /etc/containers/systemd
+    mode: "0644"
+  notify:
+    - Reload systemd
+    - Restart kuma
+  become: true

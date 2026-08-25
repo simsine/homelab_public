@@ -1,0 +1,32 @@
+- name: Write Headscale config
+  ansible.builtin.template:
+    src: templates/config.yaml
+    dest: /etc/headscale
+    mode: "0644"
+    validate: /usr/bin/headscale configtest -c %s
+  become: true
+  notify: Restart Headscale
+
+- name: Write Headscale acl
+  ansible.builtin.template:
+    src: templates/acl.json
+    dest: /etc/headscale
+    mode: "0644"
+  become: true
+  notify: Restart Headscale
+
+- name: Enable Headscale service
+  ansible.builtin.systemd_service:
+    name: headscale
+    enabled: true
+  become: true
+
+- name: Enable ipv4 forwarding for exit node support
+  ansible.posix.sysctl:
+    key: net.ipv4.ip_forward
+    value: "1"
+
+- name: Enable ipv6 forwarding for exit node support
+  ansible.posix.sysctl:
+    key: net.ipv6.conf.all.forwarding
+    value: "1"

@@ -1,0 +1,26 @@
+- name: Install required nginx packages
+  ansible.builtin.apt:
+    pkg:
+      - curl
+      - gnupg2
+      - ca-certificates
+      - lsb-release
+      - ubuntu-keyring
+      - nginx
+      - nginx-module-acme
+
+- name: Write nginx config
+  ansible.builtin.template:
+    src: templates/nginx.conf
+    dest: /etc/nginx
+    mode: "0644"
+    validate: /usr/sbin/nginx -t -c %s
+  notify: Restart nginx
+  become: true
+
+- name: Enable nginx service
+  ansible.builtin.systemd_service:
+    name: nginx
+    enabled: true
+    state: started
+  become: true

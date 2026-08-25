@@ -1,0 +1,6 @@
+---
+collections:
+  - name: ansible.posix
+    version: "2.2.2"
+  - name: community.beszel
+    version: "2.0.0"

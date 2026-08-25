@@ -1,0 +1,24 @@
+aperture.simsine.no {
+        respond "Hello from Aperture Science Home Laboratories!"
+}
+
+headscale.simsine.no {
+        reverse_proxy localhost:8080
+}
+
+uptime.simsine.no {
+        reverse_proxy localhost:3001
+}
+
+yatzy.simsine.no {
+        reverse_proxy localhost:8008
+}
+
+bupie.no {
+        root * /var/www/html/bupie
+        file_server
+}
+
+# jellyfin.bupie.no {
+#         reverse_proxy wheatley.vpn.simsine.no:8096
+# }

@@ -1,0 +1,24 @@
+name: Tests
+run-name: Run Ansible tests
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_call:
+
+jobs:
+  test_ansible:
+    name: Test Ansible
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v6
+
+      - name: Install ansible-lint
+        run: pip install ansible-lint
+
+      - name: Run Ansible setup
+        run: bash ./setup_ansible.sh
+
+      - name: Lint all Ansible files
+        run: ansible-lint ./ansible

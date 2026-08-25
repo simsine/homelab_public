@@ -1,0 +1,17 @@
+[Unit]
+Description=Uptime Kuma monitoring
+After=network.target
+
+[Container]
+Image=docker.io/louislam/uptime-kuma:2.5.3
+ContainerName=kuma
+PublishPort=3001:3001
+Volume=/var/lib/kuma:/app/data
+
+[Service]
+Restart=always
+TimeoutStartSec=600
+
+[Install]
+# Start by default on boot
+WantedBy=default.target

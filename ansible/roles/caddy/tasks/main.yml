@@ -1,0 +1,14 @@
+- name: Write Caddy config
+  ansible.builtin.template:
+    src: templates/Caddyfile
+    dest: /etc/caddy/Caddyfile
+    mode: "0644"
+  become: true
+  notify: Restart Caddy
+
+- name: Caddy service
+  ansible.builtin.systemd_service:
+    name: caddy
+    enabled: false
+    state: stopped
+  become: true
