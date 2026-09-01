@@ -1,0 +1,54 @@
+- name: Create copyparty public data dir
+  ansible.builtin.file:
+    path: /srv/copyparty/pub
+    state: directory
+    mode: "0644"
+  become: true
+
+- name: Create copyparty share data dir
+  ansible.builtin.file:
+    path: /srv/copyparty/share
+    state: directory
+    mode: "0644"
+  become: true
+
+- name: Create copyparty private data dir
+  ansible.builtin.file:
+    path: /srv/copyparty/priv
+    state: directory
+    mode: "0644"
+  become: true
+
+- name: Create copyparty config dir
+  ansible.builtin.file:
+    path: /etc/copyparty
+    state: directory
+    mode: "0644"
+  become: true
+
+- name: Write copyparty config file
+  ansible.builtin.template:
+    src: templates/copyparty.conf
+    dest: /etc/copyparty
+    mode: "0644"
+  notify: Restart Copyparty
+  become: true
+
+- name: Write copyparty container file
+  ansible.builtin.template:
+    src: templates/copyparty.container
+    dest: /etc/containers/systemd
+    mode: "0644"
+  notify:
+    - Reload Systemd
+    - Restart Copyparty
+  become: true
+
+- name: Create copyparty socket dir
+  ansible.builtin.file:
+    path: /run/copyparty
+    state: directory
+    mode: "02770" # With setgit bit to inherit user:group state
+    owner: "root"
+    group: "nginx"
+  become: true
