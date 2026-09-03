@@ -24,9 +24,3 @@
     enabled: true
     state: started
   become: true
-
-- name: Add nginx user to nginx group
-  ansible.builtin.user:
-    name: nginx
-    group: nginx
-    state: present
