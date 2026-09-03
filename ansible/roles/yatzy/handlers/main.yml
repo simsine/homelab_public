@@ -1,0 +1,5 @@
+- name: Restart Yatzy service
+  ansible.builtin.systemd_service:
+    name: yatzy
+    state: restarted
+  become: true

@@ -1,0 +1,9 @@
+[Unit]
+Description=Yatzy Socket
+PartOf=yatzy.service
+
+[Socket]
+ListenStream=8008
+
+[Install]
+WantedBy=sockets.target
