@@ -1,0 +1,21 @@
+[Container]
+Image=docker.io/kanidm/server:1.11.2
+ContainerName=kanidm
+# Uncomment to enable auto-updates
+# AutoUpdate=registry
+PublishPort=8443:8443
+Volume=/var/lib/kanidm:/data:z
+
+[Unit]
+After=default.target
+
+[Install]
+# Start by default on boot
+WantedBy=default.target
+
+[Service]
+# Give the container time to start in case it needs to pull the image
+TimeoutStartSec=600
+TimeoutStopSec=30
+# Creates the state directory of /var/lib/kanidm on the host
+StateDirectory=kanidm
