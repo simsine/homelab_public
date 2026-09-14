@@ -1,0 +1,18 @@
+---
+- name: Write copyparty container file
+  ansible.builtin.template:
+    src: templates/kanidm.container
+    dest: /etc/containers/systemd
+    mode: "0644"
+  notify:
+    - Reload Systemd
+    - Restart kanidm
+  become: true
+
+- name: Write kanidm config file
+  ansible.builtin.template:
+    src: templates/server.toml
+    dest: /var/lib/kanidm
+    mode: "0644"
+  notify: Restart kanidm
+  become: true

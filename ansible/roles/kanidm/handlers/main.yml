@@ -1,0 +1,11 @@
+---
+- name: Reload Systemd
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+  become: true
+
+- name: Restart kanidm
+  ansible.builtin.systemd_service:
+    name: kanidm
+    state: restarted
+  become: true
